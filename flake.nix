@@ -11,7 +11,9 @@
 
     # packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
 
-    nixosConfigurations.hyprnix = nixpkgs.lib.mkDefault nixpkgs.lib.nixosSystem {
+    nixosConfiguration.default = self.nixosConfigurations.hyprnix;
+
+    nixosConfigurations.hyprnix = nixpkgs.lib.nixosSystem {
       # system = "x86_64-linux"; # legacy option, already defined in hardware-configuration.nix
       modules = [
         ./configuration.nix
