@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    natrix.url = "github:0xhanu58/natrix?ref=main";
   };
 
   outputs = { self, nixpkgs }: {
