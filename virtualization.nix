@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./gpu-passthrough.nix ];
 
   # Enable dconf (System Management Tool)
   programs.dconf.enable = true;
@@ -15,7 +16,7 @@
     spice-protocol
     win-virtio
     win-spice
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     docker-compose
   ];
 

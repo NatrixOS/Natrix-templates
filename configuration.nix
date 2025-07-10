@@ -5,11 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.grub = {
     enable = true;
@@ -31,6 +26,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # for obs
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
