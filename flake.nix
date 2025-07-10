@@ -18,6 +18,7 @@
       modules = [
         ./configuration.nix
 	./hardware-configuration.nix
+	./virtualization.nix
       ];
     };
   };

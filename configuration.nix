@@ -31,6 +31,14 @@
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+
   networking.hostName = "hyprnix"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -91,7 +99,7 @@
     enable = true;
     isNormalUser = true; 
     description = "#_dedicated";
-    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     group = "hanu58";
     createHome = true;
     homeMode = "700";
@@ -110,18 +118,12 @@
   users.defaultUserShell = pkgs.fish;
 
 
-  # enable Docker support
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = false;
-    #storageDriver = "btrfs";
-  };
+  
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    docker-compose
     wget
     nano
     dunst
@@ -146,6 +148,13 @@
     discord 
     tealdeer
     hashcat
+    vscodium
+    nodejs_24
+    foundry
+    python314
+    btop
+    obs-studio
+    tor-browser
   ];
 
 
