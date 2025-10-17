@@ -120,12 +120,13 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    bluetui 
     wget
     nano
     dunst
     playerctl
     wofi
-    kdePackages.dolphin 
+    kdePackages.dolphin
     brightnessctl
     pavucontrol
     fastfetch
@@ -146,11 +147,31 @@
     hashcat
     vscodium
     nodejs_24
+    yarn
     foundry
     python314
     btop
     obs-studio
     tor-browser
+    dmidecode #smbios
+    remmina
+    hexedit
+    rustup
+    gcc
+    libreoffice-fresh
+    rlwrap
+    netcat-gnu
+    exfat
+    zathura
+    vlc
+    kdePackages.okular
+    ntfs3g
+    xorg.xhost
+    signal-desktop
+    grim
+    slurp
+    swappy
+    burpsuite
   ];
 
 
@@ -245,6 +266,8 @@
   #  enable = true;
   #};
 
+  # tailscale
+  services.tailscale.enable = true;
 
   # Zsh
   programs.zsh = {
@@ -253,9 +276,12 @@
   };
  
   # Thunar
-  #programs.thunar.enable = true;
-  #services.gvfs.enable = true;
+  programs.thunar.enable = true;
+  services.gvfs.enable = true;
   
+
+  # Bluetooth
+  hardware.bluetooth.enable = true;
 
   # session variables 
   environment.sessionVariables = {
