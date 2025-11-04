@@ -19,6 +19,8 @@
         ./configuration.nix
 	./hardware-configuration.nix
 	./virtualization.nix
+	./network-conf.nix
+	./cyber.nix
       ];
     };
   };

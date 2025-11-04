@@ -35,17 +35,8 @@
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
 
-  networking.hostName = "hyprnix"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n = {
@@ -120,6 +111,8 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wl-clipboard
+    ripgrep
     bluetui 
     wget
     nano
@@ -171,6 +164,7 @@
     grim
     slurp
     swappy
+    p7zip
     burpsuite
   ];
 
@@ -365,12 +359,6 @@
 
   # Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
