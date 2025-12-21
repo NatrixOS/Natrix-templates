@@ -150,6 +150,9 @@
     remmina
     hexedit
     rustup
+    openssl # needed by rust
+    pkg-config # needed by rust
+    zlib # needed by rust
     gcc
     libreoffice-fresh
     rlwrap
@@ -157,6 +160,8 @@
     exfat
     zathura
     vlc
+    rmpc # mpd client 
+    cava
     kdePackages.okular
     ntfs3g
     xorg.xhost
@@ -165,9 +170,53 @@
     slurp
     swappy
     p7zip
-    burpsuite
+    unzip
+    file
+    impala
+    chromium
+    speedtest-go
+    net-tools
+    dig
+    hostapd # for hotspot
+    iw # manage wireless cards on low level
+    dnsmasq # dns management
   ];
 
+  # mpd
+  services.mpd = {
+    enable = true;
+    startWhenNeeded = true;
+    openFirewall = true;
+    user = "hanu58";
+    settings = {
+      port = 6600;
+      bind_to_address = "any";
+      audio_output = [
+        {
+          type = "pipewire";
+          name = "MPD PipewireAudio"; # this can be whatever you want
+        }
+      ];
+      log_level = "verbose";
+    };
+    dataDir = "/home/hanu58/Downloads/mpd_data_dir";
+    credentials = [
+      {
+        passwordFile = "/home/hanu58/Downloads/mpd_data_dir/admin_pass";
+        permissions = [ "read" "add" "control" "admin" ];
+      }
+      {
+        passwordFile = "/home/hanu58/Downloads/mpd_data_dir/normal_pass";
+        permissions = [ "read" "add" "control" ];
+      }
+    ];
+  };
+  
+  # set env for mpd
+  systemd.services.mpd.environment = {
+    # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+    XDG_RUNTIME_DIR = "/run/user/${toString config.users.users.hanu58.uid}"; # User-id must match above user. MPD will look inside this directory for the PipeWire socket.
+  };
 
   # Flatpak
   services.flatpak.enable = true;

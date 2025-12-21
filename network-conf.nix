@@ -5,6 +5,8 @@
     hostName = "hyprnix";
     useDHCP = false; # iwd uses dhcp by default
     
+    resolvconf.enable = true;
+
     wireless.iwd = {
       enable = true;
       settings = {
@@ -16,7 +18,7 @@
           RoamThreshold5G = -80;
         };
         Network = {
-          NameResolvingService = "systemd";
+          NameResolvingService = "resolvconf";
         };
         Scan = {
           DisablePeriodicScan = true;
@@ -37,7 +39,7 @@
   };
 
   services.resolved = {
-    enable = true;
+    enable = false;
     domains = [ "~." ];
     dnssec = "true";
     dnsovertls = "true";
