@@ -126,7 +126,7 @@
     obsidian
     lsd
     zoxide
-    sublime
+    sublime4
     grc
     bat
     fzf
@@ -143,7 +143,9 @@
     yarn
     foundry
     anchor
+    #solana-cli #didn't build
     solc
+    pnpm
     # solc-select
     python314
     btop
@@ -171,7 +173,7 @@
     cava
     kdePackages.okular
     ntfs3g
-    xorg.xhost
+    xhost
     signal-desktop
     grim
     slurp
@@ -191,7 +193,36 @@
     clock-rs # clock, configure it
     telegram-desktop
     monero-gui
+    google-chrome
+    jq
+    appimage-run
   ];
+
+
+  # pass mic to container
+  #systemd.user.services.kasm-audio-bridge = {
+  #  description = "Expose PipeWire-Pulse over TCP for Kasm docker containers";
+  #  after = [ "pipewire-pulse.service" ];
+  #  wants = [ "pipewire-pulse.service" ];
+  #  wantedBy = [ "default.target" ];
+  #  serviceConfig = {
+  #    Type = "oneshot";
+  #    RemainAfterExit = true;
+  #    ExecStart = "${pkgs.pulseaudio}/bin/pactl load-module module-native-protocol-tcp port=4713 listen=0.0.0.0 auth-ip-acl=127.0.0.1;172.17.0.0/16";
+  #    ExecStop = "${pkgs.pulseaudio}/bin/pactl unload-module module-native-protocol-tcp";
+  #  };
+  #};
+
+  nixpkgs.config.permittedInsecurePackages = [ 
+    "openssl-1.1.1w"
+  ];
+
+  # sublime4 uses insure openssl 
+  nixpkgs.config.problems.handlers = {
+    sublimetext4 = {
+      broken = "warn";
+    };
+  };
 
   # mpd
   services.mpd = {
@@ -256,6 +287,7 @@
     #extraPackages = with pkgs; [ neovim-qt xclip ];
   };
 
+  programs.nix-ld.enable = true; # dynamic libraries for nixos
 
   # Hyprland
   programs.hyprland = {
@@ -277,9 +309,12 @@
   # Greet Display Manger # setup this
   services.displayManager.sddm = {
     enable = true;
+    # wayland.enable = true; # needs kde kwin, this is also if you want the greeter also to open as wayland
     # theme = "";
     autoNumlock = true;
   };
+  
+  services.displayManager.defaultSession = "hyprland";
 
   # Fish
   programs.fish = {
@@ -366,6 +401,7 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    #package = config.boot.kernelPackages.nvidiaPackages.vgpu_17_3;
   };
 
   nixpkgs.config.allowUnfree = true;

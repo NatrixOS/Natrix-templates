@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./gpu-passthrough.nix ];
+  # imports = [ ./gpu-passthrough.nix ];
 
   # Enable dconf (System Management Tool)
   programs.dconf.enable = true;
@@ -28,6 +28,12 @@
     enable = true;
     enableOnBoot = false;
     #storageDriver = "btrfs";
+    #daemon.settings = {
+    #  runtimes.nvidia = {
+    #    path = "${pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
+    #    runtimeArgs = [];
+    #  };
+    #};
   };
 
   # enable LXC support
@@ -54,4 +60,14 @@
   };
   # services.spice-vdagentd.enable = true; # for clipboard sharing
 
+  # gpu to container
+
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+  };
+ 
+  # vgpu split form flake.nix
+  #hardware.nvidia.vgpu = {
+  #  patcher.enable = true;
+  #};
 }

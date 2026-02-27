@@ -16,8 +16,8 @@
     feroxbuster
     gobuster
     ffuf
-    wfuzz
-    python313Packages.dirsearch
+    #wfuzz
+    #python313Packages.dirsearch
     ghidra
     binwalk
     exiftool
@@ -27,13 +27,15 @@
     wireshark
     kerbrute
     sqlcmd
-    sqsh
+    #sqsh
     python313Packages.impacket
     evil-winrm
     netexec
     #crackmapexec
     bloodhound-ce
     bloodhound-py
+    android-tools
+    freerdp #xfreerdp
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

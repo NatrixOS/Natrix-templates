@@ -40,10 +40,12 @@
 
   services.resolved = {
     enable = false;
-    domains = [ "~." ];
-    dnssec = "true";
-    dnsovertls = "true";
-    fallbackDns = [ "8.8.8.8" "8.8.4.4" ];
+    settings.Resolve = {
+	DNSOverTLS = true;
+	DNSSEC = true;
+	Domains = [ "~." ];
+	FallbackDNS = [ "8.8.8.8" "8.8.4.4" ]; 
+    };
   };
 
   systemd.network.links."80-iwd" = lib.mkForce {

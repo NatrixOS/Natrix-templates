@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    #vgpu4nixos.url = "github:mrzenc/vgpu4nixos";
   };
 
   outputs = { self, nixpkgs }: {
@@ -21,6 +22,7 @@
 	./virtualization.nix
 	./network-conf.nix
 	./cyber.nix
+	#vgpu4nixos.nixosModules.host
       ];
     };
   };
