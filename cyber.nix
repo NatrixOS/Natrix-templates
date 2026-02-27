@@ -7,6 +7,7 @@
 
   environment.systemPackages = with pkgs; [
     openvpn
+    inetutils
     john
     nmap
     metasploit
@@ -15,6 +16,7 @@
     feroxbuster
     gobuster
     ffuf
+    wfuzz
     python313Packages.dirsearch
     ghidra
     binwalk
@@ -22,6 +24,16 @@
     jdk
     audacity
     awscli2
+    wireshark
+    kerbrute
+    sqlcmd
+    sqsh
+    python313Packages.impacket
+    evil-winrm
+    netexec
+    #crackmapexec
+    bloodhound-ce
+    bloodhound-py
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

@@ -132,7 +132,7 @@
     fzf
     git
     kitty
-    spotify
+    #spotify
     lshw # list harware
     desktop-file-utils # to get update-desktop-database and list app in xdg-open chooser
     discord 
@@ -142,6 +142,9 @@
     nodejs_24
     yarn
     foundry
+    anchor
+    solc
+    # solc-select
     python314
     btop
     obs-studio
@@ -150,17 +153,21 @@
     remmina
     hexedit
     rustup
-    openssl # needed by rust
+    musl # needed for standalone compilation,    1. rustup target add x86_64-unknown-linux-musl
+    musl.dev # needed for standalone compilation 2. cargo build --release --target x86_64-unknown-linux-musl
+    openssl # needed by hyper-tls, generally good to have
     pkg-config # needed by rust
     zlib # needed by rust
-    gcc
+    gcc # needed by musl and common compilation
     libreoffice-fresh
     rlwrap
     netcat-gnu
     exfat
     zathura
     vlc
-    rmpc # mpd client 
+    rmpc # mpd client
+    ffmpeg
+    mediainfo
     cava
     kdePackages.okular
     ntfs3g
@@ -180,24 +187,36 @@
     hostapd # for hotspot
     iw # manage wireless cards on low level
     dnsmasq # dns management
+    snapcast
+    clock-rs # clock, configure it
+    telegram-desktop
+    monero-gui
   ];
 
   # mpd
   services.mpd = {
-    enable = true;
+    enable = false;
     startWhenNeeded = true;
     openFirewall = true;
     user = "hanu58";
     settings = {
       port = 6600;
       bind_to_address = "any";
+      #audio_output_format = "*:*:*";
       audio_output = [
         {
           type = "pipewire";
           name = "MPD PipewireAudio"; # this can be whatever you want
+	  format = "*:*:*";
         }
       ];
       log_level = "verbose";
+      resampler = [
+        {
+          plugin = "soxr";
+	  quality = "very high";
+        }
+      ];
     };
     dataDir = "/home/hanu58/Downloads/mpd_data_dir";
     credentials = [
